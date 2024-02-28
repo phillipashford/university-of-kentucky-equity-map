@@ -86,7 +86,7 @@
                 }
             }
         },
-        "VeteransStatus": {
+        "Veterans Status": {
             "variables": {
                 "TotalVeterans": { 
                     "code": "B21001_001E", 
