@@ -102,15 +102,15 @@
             "variables": {
                 "Median Household Income": {
                     "code": "B19013_001E",
-                    "transform": "currency",
-                    "base": "none",
-                    "baseLabel": "none"
+                    "transform": null,
+                    "base": null,
+                    "baseLabel": null
                 },
                 "Per Capita Income": {
                     "code": "B19301_001E",
-                    "transform": "currency",
-                    "base": "none",
-                    "baseLabel": "none"
+                    "transform": null,
+                    "base": null,
+                    "baseLabel": null
                 }
             }
         },
