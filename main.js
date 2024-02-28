@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
             option.value = details.code; 
             option.textContent = humanReadableName; 
             variableSelect.appendChild(option);
-            console.log(humanReadableName, details.code);
         });
         checkVariableSelection();
     }
@@ -105,8 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         geography = geography || document.querySelector('input[name="geography"]:checked').value;
 
         if (selectedVariableDetails['transform']) {
-            selectedVariable += ("," + selectedVariableDetails['base']); 
-            console.log('Selected variable with transform:', selectedVariable);   
+            selectedVariable += ("," + selectedVariableDetails['base']);  
         }
         console.log('Selected variable:', selectedVariable);
         const requestData = {
@@ -194,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Assign the variable value from ACS data to the GeoJSON feature
                     feature.properties.variableValue = acsData[geoCode] || 0; // Default to 0 if not found
                 });
-                console.log('Merged GeoJSON with ACS data:', data);
+                console.log('Merged GeoJSON with ACS data (not yet transformed):', data);
                 // Store the new layer in the currentLayers object
                 currentLayers[geography] = L.geoJson(data, {
                     // Define the style for GeoJSON layer
