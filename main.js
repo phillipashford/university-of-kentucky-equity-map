@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             option.textContent = humanReadableName; 
             variableSelect.appendChild(option);
         });
+        variableSelect.options[0].classList.add('border-2', 'border-blue-500', 'shadow-lg');
         checkVariableSelection();
     }
     
