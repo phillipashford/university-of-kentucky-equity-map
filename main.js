@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let init = true;
     let colorScale;
     let breaks;
+    let selectedVariable = '';
+    let selectedVariableName = '';
 
     // Initializes with submit button disabled
     submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -52,20 +54,25 @@ document.addEventListener('DOMContentLoaded', function () {
         variableSelect.innerHTML = '';
         Object.entries(variables).forEach(([humanReadableName, details]) => {
             let option = document.createElement('option');
-            option.value = details.code; 
-            option.textContent = humanReadableName; 
+            option.value = details.code;
+            option.textContent = humanReadableName;
             variableSelect.appendChild(option);
         });
-        variableSelect.options[0].classList.add('border-2', 'border-blue-500', 'shadow-lg');
+        if (init) {
+            variableSelect.options[0].classList.add('border-2', 'border-blue-500', 'shadow-lg');
+        } else {
+            variableSelect.options[0].classList.remove('border-2', 'border-blue-500', 'shadow-lg');
+        }
         checkVariableSelection();
     }
-    
+
 
     function checkVariableSelection() {
         const isSelected = variableSelect.selectedOptions.length > 0;
         submitBtn.disabled = !isSelected;
         submitBtn.classList.toggle('opacity-50', !isSelected);
         submitBtn.classList.toggle('cursor-not-allowed', !isSelected);
+        variableSelect.options[0].classList.remove('border-2', 'border-blue-500', 'shadow-lg');
     }
 
     function createOptionElement(value, text) {
@@ -79,40 +86,47 @@ document.addEventListener('DOMContentLoaded', function () {
     subcategorySelect.addEventListener('change', updateVariables);
     variableSelect.addEventListener('change', checkVariableSelection);
 
-    async function processFormSubmission(geography) {
-        let selectedVariable = '';
-        let selectedVariableName = '';
+    async function processFormSubmission(geography, selectedVariable, selectedVariableName) {
+
+        // Define variables for DOM traversal
         let selectedCategory = '';
         let selectedSubcategory = '';
         let selectedVariableDetails = '';
 
         if (init) {
+            geography = 'fayette';
+            selectedCategory = 'Demographics';
+            selectedSubcategory = 'Population';
             selectedVariable = 'B01001_001E';
             selectedVariableName = 'Total Population';
+            variableSelect.options[0].classList.add('border-2', 'border-blue-500', 'shadow-lg');
             init = false;
         } else {
             selectedVariable = variableSelect.value;
             selectedVariableName = variableSelect.options[variableSelect.selectedIndex].text;
+        }
+
+
 
         selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
 
         selectedSubcategory = subcategorySelect.options[subcategorySelect.selectedIndex].text;
 
         selectedVariableDetails = data[selectedCategory][selectedSubcategory].variables[selectedVariableName];
+
         console.log(selectedVariableDetails);
-    }
 
         geography = geography || document.querySelector('input[name="geography"]:checked').value;
 
         if (selectedVariableDetails['transform']) {
-            selectedVariable += ("," + selectedVariableDetails['base']);  
+            selectedVariable += ("," + selectedVariableDetails['base']);
         }
         console.log('Selected variable:', selectedVariable);
         const requestData = {
             selectedVariable,
             geography
-            };
-        
+        };
+
 
         console.log('Sending request data to PHP backend:', requestData);
 
@@ -149,16 +163,15 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('input[name="geography"]').forEach(input => {
         input.addEventListener('change', async event => {
             // Manages initial geography change from default
-            init = true;
+            // init = true;
             // Call the processFormSubmission function with the new geography value.
             // This ensures the form submission process completes before updating the map layer.
             await processFormSubmission(event.target.value);
-            init = false;
+            // init = false;
         });
     });
 
-    loadVariables();
-    initializeMapWithGeoJSON();
+    initializeMap();
 
     var map = L.map('map').setView([37.8393, -86], 7.5);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -166,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
-
 
     // Function to update the map with the new GeoJSON layer
     function updateMapLayer(geography, acsData, selectedVariableName) {
@@ -210,7 +222,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     onEachFeature: function (feature, layer) {
                         // Define the content of the popup
                         const popupContent = `<h3>${feature.properties.NAMELSAD}</h3>` +
-                            `<p>${selectedVariableName}: ${feature.properties.variableValue}</p>`;
+                            `<p>${selectedVariableName}: ${feature.properties.variableValue}</p><div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                            <p class="font-bold">Warning</p>
+                            <p>Represented data are raw counts and are not yet standardized.</p>
+                        </div>
+                        `;
                         // Bind the popup to the layer
                         layer.bindPopup(popupContent);
                     }
@@ -228,10 +244,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error loading the GeoJSON:', error));
     }
 
-
     // Initialize map based on default selections
-    function initializeMapWithGeoJSON() {
-        processFormSubmission('fayette');
+    async function initializeMap() {
+        await loadVariables();
+        await processFormSubmission();
     }
 
     function updateLegend(variableName) {
@@ -269,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return parsedData;
     }
-
 
     function getColor(value) {
         // Use Chroma.js to get color corresponding to the value
