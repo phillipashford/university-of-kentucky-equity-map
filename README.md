@@ -39,7 +39,7 @@ The data for this project (in its current iteration) is sourced exclusively from
     * Exported the layers as geojson files. 
 2. The data is being retrieved from the Census ACS ([American Community Survey](https://www.census.gov/programs-surveys/acs/data.html)) API. We are retrieving the ACS 5 year data specifically.
 #### API Queries
-The program requests data from the API with programmatically generated query strings that are based on user selections. Valid requests will include at least one 'variable' (attribute) code, for example 'B01001_001E' ('Total Population').
+The program requests data from the API with programmatically generated query strings that are based on user selections. Valid requests will include at least one 'variable' (attribute) code, for example 'B01001_001E' ('Total Population', and one geography parameter).
 ```
 https://api.census.gov/data/2022/acs/acs5?get=B01001_001E,B01002_001E,B02001_001E&for=county:*&in=state:21
 ```
@@ -55,7 +55,7 @@ Sourcing the codes for specific variables was a significant challenge. I was pre
 
     Once I developed a better handle on navigating and understanding the Census site, I was able to complete more fruitful research within it. Not only did I pinpoint specific reference material necessary for this project (such as [table shells](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html)), but I also came across material that will help with gaps in my knowledge. 
     
-    For example, the [Statistical Testing Tool](https://www.census.gov/programs-surveys/acs/guidance/statistical-testing-tool.html), uses the margin of error values along with estimate values to determine statistical significance. The tool is provided as an [excel spreadsheet](https://www.census.gov/content/dam/Census/programs-surveys/acs/data/tables/Statistical_Testing_Tool.xlsx) which a user can copy and paste or otherwise import values into. 
+    For example, the [Statistical Testing Tool](https://www.census.gov/programs-surveys/acs/guidance/statistical-testing-tool.html), uses the margin of error values along with estimate values to determine statistical significance. The tool is provided as an [excel spreadsheet](https://www.census.gov/content/dam/Census/programs-surveys/acs/data/tables/Statistical_Testing_Tool.xlsx) into which a user can copy and paste or otherwise import values. 
     
     Following such a workflow to compare all variables against one another for all geographies would be immensely time-consuming. However, what is so helpful about this tool is that I can work from the formulas built into the spreadhseet to create statistical testing functionality that will be programmatically performed on the data retrieved by the app. By this method, I will be able to report to the user whether any bivariate comparison's results are sound.
 
@@ -190,7 +190,7 @@ The backend database will be populated with comprehensive application data. Nece
 [Census Reporter](https://censusreporter.org/) maintains a PostgreSQL database housing the ACS datasets. They make it accessible to clients via API. Integration with this API could be a backup method for data retrieval.
 
 **3. Flat Files**
-* **Asynchronous Flat File retrieval:** Depending on the comprehensive data volume (not yet determined) it may be worth default retrieval and storage of it its entirety on the client-side.
+* **Asynchronous Flat File retrieval:** Depending on the comprehensive data volume (not yet determined) it may be worth default retrieval and storage of it in its entirety on the client-side.
 
 * **Caching:** Alternatively, upon successful retrieval of user-selected data, a client-side flat file could provide for caching. This will optimize the retrieval of previously/frequently selected data. 
 
