@@ -186,7 +186,8 @@ The backend database will be populated with comprehensive application data. Nece
     * If the response from the API is bad, send the query to the database, retrieve the data, and send it back to the client in a format acceptable to the client-side parsing and processing functions.
 
 **2. [Census Reporter API](https://github.com/censusreporter/census-api?tab=readme-ov-file)**
-Census reporter maintains a PostgreSQL database housing the ACS datasets. They make it to accessible to clients via API. Integration with this API could be a backup method for data retrieval.
+
+[Census Reporter](https://censusreporter.org/) maintains a PostgreSQL database housing the ACS datasets. They make it accessible to clients via API. Integration with this API could be a backup method for data retrieval.
 
 **3. Flat Files**
 * **Asynchronous Flat File retrieval:** Depending on the comprehensive data volume (not yet determined) it may be worth default retrieval and storage of it its entirety on the client-side.
