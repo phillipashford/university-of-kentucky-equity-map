@@ -53,7 +53,7 @@ Sourcing the codes for specific variables was a significant challenge. I was pre
 
 * The US Census Website
 
-    Once I developed a better handle on navigating and understanding the Census site, I was able to complete more fruitful research within it. Not only did I pinpoint specific reference material necessary for this project, but I also came across material that will help with gaps in my knowledge. 
+    Once I developed a better handle on navigating and understanding the Census site, I was able to complete more fruitful research within it. Not only did I pinpoint specific reference material necessary for this project (such as [table shells](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html)), but I also came across material that will help with gaps in my knowledge. 
     
     For example, the [Statistical Testing Tool](https://www.census.gov/programs-surveys/acs/guidance/statistical-testing-tool.html), uses the margin of error values along with estimate values to determine statistical significance. The tool is provided as an [excel spreadsheet](https://www.census.gov/content/dam/Census/programs-surveys/acs/data/tables/Statistical_Testing_Tool.xlsx) which a user can copy and paste or otherwise import values into. 
     
@@ -185,7 +185,10 @@ The backend database will be populated with comprehensive application data. Nece
 * **DB querying and retrieval** Conditional functionality in the API gateway script:
     * If the response from the API is bad, send the query to the database, retrieve the data, and send it back to the client in a format acceptable to the client-side parsing and processing functions.
 
-**2. Flat Files**
+**2. [Census Reporter API](https://github.com/censusreporter/census-api?tab=readme-ov-file)**
+Census reporter maintains a PostgreSQL database housing the ACS datasets. They make it to accessible to clients via API. Integration with this API could be a backup method for data retrieval.
+
+**3. Flat Files**
 * **Asynchronous Flat File retrieval:** Depending on the comprehensive data volume (not yet determined) it may be worth default retrieval and storage of it its entirety on the client-side.
 
 * **Caching:** Alternatively, upon successful retrieval of user-selected data, a client-side flat file could provide for caching. This will optimize the retrieval of previously/frequently selected data. 
@@ -199,6 +202,7 @@ Consider any additional data you might need, analysis techniques to apply, or vi
     * In-migration and out-migration
     * Longevity metrics
     * Food security metrics
+    * Place of origin
     * Household Size and Composition
     * Average household size
     * Types of households (e.g., single-family, multi-generational)
