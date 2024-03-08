@@ -1,27 +1,46 @@
 {
     "_reference": {
-        "description": "This object serves as a reference to understand the structure of this file, which contains variable codes from the American Community Survey API",
-        "note": "Categories, subcategories, and variables are defined below."
+        "File Description": "This object serves as a reference to understand the structure of this file, which contains variable codes from the American Community Survey API",
+        "Schema Key": {
+            "Category Name": {
+                "subcategory Name": {
+                        "Variables": {
+                            "Variable Name": {
+                                "variableCode": "Variable Code",
+                                "transformationType": "Transformation Type",
+                                "baseCode": "Base Variable Code",
+                                "baseLabel": "Base Variable Label"
+                            }
+                        }
+                    }
+                }
+            },
+        "Transformation Types": {
+            "none": "No transformation applied. Raw values from the dataset are used.",
+            "percentage": "The value is transformed into a percentage of the base value indicated.",
+            "ratePerThousand": "The value is transformed into a rate per thousand of the base value.",
+            "sum_percentage": "Specific categories are summed together before calculating the percentage of the base value."
+        }
     },
     "Demographics": {
         "Age and Gender": {
             "variables": {
                 "Total Population": {
-                    "code": "B01001_001E",
-                    "transform": null,
-                    "base": "none",
+                    "variableCode": "B01001_001E",
+                    "transformationType": null,
+                    "baseCode": "none",
                     "baseLabel": "none"
                 },
                 "Male Population": {
-                    "code": "B01001_002E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B01001_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Female Population": {
-                    "code": "B01001_026E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B01001_026E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
             }
@@ -29,21 +48,21 @@
         "Race and Ethnicity": {
             "variables": {
                 "White Alone": {
-                    "code": "B02001_002E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B02001_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Black or African American Alone": {
-                    "code": "B02001_003E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B02001_003E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Hispanic or Latino": {
-                    "code": "B03001_003E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B03001_003E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
             }
@@ -51,15 +70,15 @@
         "Household Types": {
             "variables": {
                 "Family Households": {
-                    "code": "B11001_002E",
-                    "transform": "percentage",
-                    "base": "B11001_001E",
+                    "variableCode": "B11001_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B11001_001E",
                     "baseLabel": "Total Households"
                 },
-                "Nonfamily Households": {
-                    "code": "B11001_007E",
-                    "transform": "percentage",
-                    "base": "B11001_001E",
+                "Non-family Households": {
+                    "variableCode": "B11001_007E",
+                    "transformationType": "percentage",
+                    "baseCode": "B11001_001E",
                     "baseLabel": "Total Households"
                 }
             }
@@ -67,21 +86,21 @@
         "Language Spoken At Home": {
             "variables": {
                 "English Only": { 
-                    "code": "C16001_002E", 
-                    "transform": "percentage", 
-                    "base": "B01001_001E", 
+                    "variableCode": "C16001_002E", 
+                    "transformationType": "percentage", 
+                    "baseCode": "B01001_001E", 
                     "baseLabel": "Total Population"
                 },
                 "Spanish": { 
-                    "code": "C16001_003E", 
-                    "transform": "percentage", 
-                    "base": "B01001_001E", 
+                    "variableCode": "C16001_003E", 
+                    "transformationType": "percentage", 
+                    "baseCode": "B01001_001E", 
                     "baseLabel": "Total Population"
                 },
                 "Other Languages": { 
-                    "code": "C16001_004E", 
-                    "transform": "percentage", 
-                    "base": "B01001_001E", 
+                    "variableCode": "C16001_004E", 
+                    "transformationType": "percentage", 
+                    "baseCode": "B01001_001E", 
                     "baseLabel": "Total Population"
                 }
             }
@@ -89,9 +108,9 @@
         "Veterans Status": {
             "variables": {
                 "Total Veterans": { 
-                    "code": "B21001_001E", 
-                    "transform": "ratePerThousand", 
-                    "base": "B01001_001E", 
+                    "variableCode": "B21001_001E", 
+                    "transformationType": "ratePerThousand", 
+                    "baseCode": "B01001_001E", 
                     "baseLabel": "Total Population"
                 }
             }
@@ -101,15 +120,15 @@
         "Income": {
             "variables": {
                 "Median Household Income": {
-                    "code": "B19013_001E",
-                    "transform": null,
-                    "base": null,
+                    "variableCode": "B19013_001E",
+                    "transformationType": null,
+                    "baseCode": null,
                     "baseLabel": null
                 },
                 "Per Capita Income": {
-                    "code": "B19301_001E",
-                    "transform": null,
-                    "base": null,
+                    "variableCode": "B19301_001E",
+                    "transformationType": null,
+                    "baseCode": null,
                     "baseLabel": null
                 }
             }
@@ -117,9 +136,9 @@
         "Poverty": {
             "variables": {
                 "Individuals Below Poverty Level": {
-                    "code": "B17001_002E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B17001_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
             }
@@ -127,15 +146,15 @@
         "Employment": {
             "variables": {
                 "Labor Force Participation": {
-                    "code": "B23001_001E",
-                    "transform": "ratePerThousand",
-                    "base": "B01001_001E",
+                    "variableCode": "B23001_001E",
+                    "transformationType": "ratePerThousand",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Unemployment Rate": {
-                    "code": "B23025_005E",
-                    "transform": "percentage",
-                    "base": "B23025_002E",
+                    "variableCode": "B23025_005E",
+                    "transformationType": "percentage",
+                    "baseCode": "B23025_002E",
                     "baseLabel": "Labor Force"
                 }
             }
@@ -143,21 +162,21 @@
         "Industry and Occupation": {
             "variables": {
                 "Agriculture, Forestry, Fishing": {
-                    "code": "B24020_003E",
-                    "transform": "percentage",
-                    "base": "B23001_001E",
+                    "variableCode": "B24020_003E",
+                    "transformationType": "percentage",
+                    "baseCode": "B23001_001E",
                     "baseLabel": "Labor Force Population"
                 },
                 "Education, Health Care, Social Assistance": {
-                    "code": "B24020_019E",
-                    "transform": "percentage",
-                    "base": "B23001_001E",
+                    "variableCode": "B24020_019E",
+                    "transformationType": "percentage",
+                    "baseCode": "B23001_001E",
                     "baseLabel": "Labor Force Population"
                 },
                 "Professional, Scientific, Management": {
-                    "code": "B24020_015E",
-                    "transform": "percentage",
-                    "base": "B23001_001E",
+                    "variableCode": "B24020_015E",
+                    "transformationType": "percentage",
+                    "baseCode": "B23001_001E",
                     "baseLabel": "Labor Force Population"
                 }
             }
@@ -167,28 +186,28 @@
         "Educational Attainment": {
             "variables": {
                 "Less Than High School": {
-                    "code": [
+                    "variableCode": [
                         "B15003_002E", "B15003_003E", "B15003_004E", "B15003_005E",
                     "B15003_006E", "B15003_007E", "B15003_008E", "B15003_009E",
                     "B15003_010E", "B15003_011E", "B15003_012E", "B15003_013E",
                     "B15003_014E", "B15003_015E", "B15003_016E"
                     ],
-                    "transform": "sum_percentage",
-                    "base": "B01001_001E",
+                    "transformationType": "sum_percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "High School Graduate": {
-                    "code": "B15003_017E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B15003_017E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Bachelor's or Higher": {
-                    "code": [
+                    "variableCode": [
                         "B15003_022E", "B15003_023E", "B15003_024E", "B15003_025E"
                     ],
-                    "transform": "sum_percentage",
-                    "base": "B01001_001E",
+                    "transformationType": "sum_percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
             }
@@ -196,27 +215,27 @@
         "School Enrollment": {
             "variables": {
                 "Nursery to Grade 4": {
-                    "code": [
+                    "variableCode": [
                         "B14001_003E", "B14001_004E", "B14001_005E"
                     ],
-                    "transform": "sum_percentage",
-                    "base": "B01001_001E",
+                    "transformationType": "sum_percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Grades 5 to 12": {
-                    "code": [
+                    "variableCode": [
                         "B14001_006E", "B14001_007E", "B14001_008E"
                     ],
-                    "transform": "sum_percentage",
-                    "base": "B01001_001E",
+                    "transformationType": "sum_percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "College or Graduate School": {
-                    "code": [
+                    "variableCode": [
                         "B14001_009E", "B14001_010E"
                     ],
-                    "transform": "sum_percentage",
-                    "base": "B01001_001E",
+                    "transformationType": "sum_percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
             }
@@ -226,15 +245,15 @@
         "Ownership and Rent": {
             "variables": {
                 "Owner-Occupied Units": {
-                    "code": "B25003_002E",
-                    "transform": "percentage",
-                    "base": "B25003_001E",
+                    "variableCode": "B25003_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B25003_001E",
                     "baseLabel": "Total Housing Units"
                 },
                 "Renter-Occupied Units": {
-                    "code": "B25003_003E",
-                    "transform": "percentage",
-                    "base": "B25003_001E",
+                    "variableCode": "B25003_003E",
+                    "transformationType": "percentage",
+                    "baseCode": "B25003_001E",
                     "baseLabel": "Total Housing Units"
                 }
             }
@@ -242,15 +261,15 @@
         "Housing Affordability and Costs": {
             "variables": {
                 "Median Value of Owner-Occupied Housing Units": {
-                    "code": "B25077_001E",
-                    "transform": null,
-                    "base": "none",
+                    "variableCode": "B25077_001E",
+                    "transformationType": null,
+                    "baseCode": "none",
                     "baseLabel": "none"
                 },
                 "Median Gross Rent": {
-                    "code": "B25064_001E",
-                    "transform": null,
-                    "base": "none",
+                    "variableCode": "B25064_001E",
+                    "transformationType": null,
+                    "baseCode": "none",
                     "baseLabel": "none"
                 }
             }
@@ -260,15 +279,15 @@
         "Insurance Coverage": {
             "variables": {
                 "With Health Insurance": {
-                    "code": "B27001_004E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B27001_004E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
                 "Without Health Insurance": {
-                    "code": "B27001_005E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
+                    "variableCode": "B27001_005E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
             }
@@ -276,10 +295,10 @@
         "Disability": {
             "variables": {
                 "With a Disability": {
-                    "code": "B18101_004E",
-                    "transform": "percentage",
-                    "base": "B01001_001E",
-                    "baseLabel": "Total Civilian Noninstitutionalized Population"
+                    "variableCode": "B18101_004E",
+                    "transformationType": "percentage",
+                    "baseCode": "B01001_001E",
+                    "baseLabel": "Total Civilian Non-institutionalized Population"
                 }
             }
         }
@@ -288,15 +307,15 @@
         "Commuting Patterns": {
             "variables": {
                 "Workers Who Commute by Car, Truck, or Van": {
-                    "code": "B08006_002E",
-                    "transform": "percentage",
-                    "base": "B08006_001E",
+                    "variableCode": "B08006_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B08006_001E",
                     "baseLabel": "Total Workers Commuting"
                 },
                 "Public Transportation (excluding taxicab)": {
-                    "code": "B08006_008E",
-                    "transform": "percentage",
-                    "base": "B08006_001E",
+                    "variableCode": "B08006_008E",
+                    "transformationType": "percentage",
+                    "baseCode": "B08006_001E",
                     "baseLabel": "Total Workers Commuting"
                 }
             }
@@ -306,9 +325,9 @@
         "Program Participation": {
             "variables": {
                 "Households Receiving Food Stamps/SNAP": {
-                    "code": "B22010_002E",
-                    "transform": "percentage",
-                    "base": "B11001_001E",
+                    "variableCode": "B22010_002E",
+                    "transformationType": "percentage",
+                    "baseCode": "B11001_001E",
                     "baseLabel": "Total Households"
                 }
             }
@@ -318,9 +337,9 @@
         "Business Ownership": {
             "variables": {
                 "Self-Employed in Own Not Incorporated Business Workers": {
-                    "code": "B24080_004E",
-                    "transform": "percentage",
-                    "base": "B24080_001E",
+                    "variableCode": "B24080_004E",
+                    "transformationType": "percentage",
+                    "baseCode": "B24080_001E",
                     "baseLabel": "Total Employed Population"
                 }
             }
@@ -328,9 +347,9 @@
         "Economic Development Indicators": {
             "variables": {
                 "Employment Rate": {
-                    "code": "B23025_004E",
-                    "transform": "percentage",
-                    "base": "B23025_002E",
+                    "variableCode": "B23025_004E",
+                    "transformationType": "percentage",
+                    "baseCode": "B23025_002E",
                     "baseLabel": "Labor Force"
                 }
             }
