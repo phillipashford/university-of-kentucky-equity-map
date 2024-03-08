@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         geography = geography || document.querySelector('input[name="geography"]:checked').value;
 
-        if (selectedVariableDetails['transform']) {
+        if (selectedVariableDetails['transformationType']) {
             selectedVariable += ("," + selectedVariableDetails['baseCode']);
         }
         console.log('Selected variable:', selectedVariable);
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const responseData = await response.json();
         console.log('Response from server:', responseData);
-        const acsParsedData = parseACSData(responseData);
+        const acsParsedData = parseACSData(responseData, geography, selectedVariableDetails['transformationType']);
         console.log('Parsed ACS data:', acsParsedData);
 
         // Process/transform parsed data here or in acsParsedData function
@@ -270,20 +270,84 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function parseACSData(acsData) {
+    function parseACSData(acsData, geography, transformationType) {
         let parsedData = {};
+        console.log("geography: ", geography, " transformationType: ", transformationType);
+        if (transformationType) { // If transformationType is defined
+            for (let i = 1; i < acsData.length; i++) { // Skip the first row since it's header information
+                const row = acsData[i];
+                const geoCode = row[row.length - 1]; // the geographic code is the last value in the row
 
-        // Skip the first row since it's header information
-        for (let i = 1; i < acsData.length; i++) {
-            const row = acsData[i];
-            const geoCode = row[row.length - 1]; // the geographic code
-            const variableValue = row[0]; // the FIRST variable value (tranformation will be needed for most variables)
+                // RESPONSE ARRAY SELECTION LOGIC
+                // THis logic identifies all of the variable data and the base variable data in the response array
 
-            // Store the variable value keyed by the geographic code
-            parsedData[geoCode] = parseInt(variableValue, 10); // Convert to integer for mapping
+                // We begin by identifying and storing the index of the first location value
+                const locationIndex = geography === "counties" ? row.length - 2 : row.length - 3; 
+                // ^ If geography is equal to "counties", then locationIndex will be set to row.length - 2. Otherwise, locationIndex will be set to row.length - 3
+                
+                // EXAMPLE A - 'counties' geography response
+                // ['B14001_006E', 'B14001_007E', 'B14001_008E', 'B01001_001E', 'state', 'county']
+                // ['909', '764', '1554', '18887', '21', '001']
+                // In this example, locationIndex will be set to 4 ('state') (row.length - 2)
+
+                // EXAMPLE B - 'fayette' geography response
+                // ['B01001_002E', 'B01001_001E', 'state', 'county', 'tract'],
+1               // ['1650', '3163', '21', '067', '000101']
+                // In this example, locationIndex will be set to 2 ('state') (row.length - 3) 
+
+                //////////// NOTE //////////
+                // If additional geographies are added to the app or the ACS API schema is altered by the Census Bureau, the response array selection logic will need to be checked and potentially updated depending on the structure of the response array.
+                ////////////////////////////
+
+                // Store the base value to send it to the transformData function
+                const baseValue = row[locationIndex - 1]; // The last variable value before location data, in the case of example A, that would be the base value 'B01001_001E'
+                console.log("baseValue: ", baseValue);
+
+                // Variable values are all the values that come before the base variable and location values
+                const variablesValues = row.slice(0, locationIndex - 1);
+                console.log("variablesValues: ", variablesValues);
+
+                // Store the transformed variable value keyed by the geographic code
+                 parsedData[geoCode] = transformData(variablesValues, baseValue, transformationType);
+            }
+            } else { // If transformationType is not defined
+
+            //For 'Total Population' and other variables that don't require transformation, we simply loop through the response array and store the variable value keyed by the geographic code
+
+            // Example response array (Total Population variable for 'fayette' geography)
+            // ['B01001_001E', 'state', 'county', 'tract']
+1           // ['3163', '21', '067', '000101']
+
+            for (let i = 1; i < acsData.length; i++) { // Skip the first row since it's header information
+                const row = acsData[i];
+                const geoCode = row[row.length - 1]; // the geographic code is the last value in the row
+                const variableValue = row[0]; // The variable value is the first value (and the only variable value) in the row
+
+                // Store the variable value keyed by the geographic code
+                parsedData[geoCode] = parseInt(variableValue, 10); // Convert to integer for mapping
+            }
         }
-
         return parsedData;
+    }
+
+    function transformData(variablesValues, baseValue, transformationType) {
+        let result;
+        const sum = variablesValues.reduce((acc, val) => acc + parseInt(val, 10), 0); // Calculate the sum of the variablesValues
+        switch (transformationType) {
+            case 'percentage':
+                // Calculate percentage
+                result = Math.round((variablesValues / parseInt(baseValue, 10)) * 100); // round to the nearest integer
+                break;
+            case 'ratePerThousand':
+                // Calculate rate per thousand
+                result = Math.round((sum / parseInt(baseValue, 10)) * 1000); // round to the nearest integer
+                break;
+            case 'sumPercentage':
+              // Calculate sum percentage
+              result = Math.round((sum / parseInt(baseValue, 10)) * 100); // round to the nearest integer
+              break;
+        }
+        return result;
     }
 
     function getColor(value) {
