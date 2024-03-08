@@ -20,7 +20,7 @@ $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
 // Validate and sanitize input
-$validGeographies = ['fayette', 'counties', 'statewide'];
+$validGeographies = ['fayette', 'counties'];
 $geography = array_key_exists('geography', $data) ? $data['geography'] : '';
 $selectedVariable = array_key_exists('selectedVariable', $data) ? filter_var($data['selectedVariable'], FILTER_SANITIZE_STRING) : '';
 
@@ -42,9 +42,6 @@ switch ($geography) {
     case 'counties':
         $forParameter = 'county:*';
         $inParameter = 'state:21';
-        break;
-    case 'statewide':
-        $forParameter = 'state:21';
         break;
 }
 
