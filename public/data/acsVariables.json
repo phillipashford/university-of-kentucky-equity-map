@@ -19,7 +19,7 @@
             "none": "No transformation applied. Raw values from the dataset are used.",
             "percentage": "The value is transformed into a percentage of the base value indicated.",
             "ratePerThousand": "The value is transformed into a rate per thousand of the base value.",
-            "sum_percentage": "Specific categories are summed together before calculating the percentage of the base value."
+            "sumPercentage": "Specific categories are summed together before calculating the percentage of the base value."
         }
     },
     "Demographics": {
@@ -192,7 +192,7 @@
                     "B15003_010E", "B15003_011E", "B15003_012E", "B15003_013E",
                     "B15003_014E", "B15003_015E", "B15003_016E"
                     ],
-                    "transformationType": "sum_percentage",
+                    "transformationType": "sumPercentage",
                     "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
@@ -206,7 +206,7 @@
                     "variableCode": [
                         "B15003_022E", "B15003_023E", "B15003_024E", "B15003_025E"
                     ],
-                    "transformationType": "sum_percentage",
+                    "transformationType": "sumPercentage",
                     "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
@@ -218,7 +218,7 @@
                     "variableCode": [
                         "B14001_003E", "B14001_004E", "B14001_005E"
                     ],
-                    "transformationType": "sum_percentage",
+                    "transformationType": "sumPercentage",
                     "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
@@ -226,7 +226,7 @@
                     "variableCode": [
                         "B14001_006E", "B14001_007E", "B14001_008E"
                     ],
-                    "transformationType": "sum_percentage",
+                    "transformationType": "sumPercentage",
                     "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 },
@@ -234,7 +234,7 @@
                     "variableCode": [
                         "B14001_009E", "B14001_010E"
                     ],
-                    "transformationType": "sum_percentage",
+                    "transformationType": "sumPercentage",
                     "baseCode": "B01001_001E",
                     "baseLabel": "Total Population"
                 }
