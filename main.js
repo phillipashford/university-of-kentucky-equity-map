@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         variableSelect.innerHTML = '';
         Object.entries(variables).forEach(([humanReadableName, details]) => {
             let option = document.createElement('option');
-            option.value = details.code;
+            option.value = details.variableCode;
             option.textContent = humanReadableName;
             variableSelect.appendChild(option);
         });
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
         geography = geography || document.querySelector('input[name="geography"]:checked').value;
 
         if (selectedVariableDetails['transform']) {
-            selectedVariable += ("," + selectedVariableDetails['base']);
+            selectedVariable += ("," + selectedVariableDetails['baseCode']);
         }
         console.log('Selected variable:', selectedVariable);
         const requestData = {
